@@ -11,7 +11,7 @@ Download the source code and run
 ## Usage
 
 ```
-seqcomplexity-q path/to/sequence.fastq
+seqcomplexity -q path/to/sequence.fastq
 ```
 
 Arguments: 
