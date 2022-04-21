@@ -1,9 +1,9 @@
 use itertools::izip;
 use itertools::Itertools;
-use std::fs;
-use std::process::Command;
 use serde_json::from_str;
 use serde_json::{Result, Value};
+use std::fs;
+use std::process::Command;
 
 #[test]
 fn test_report() {
@@ -23,5 +23,4 @@ fn test_report() {
     let w = serde_json::from_str(&expected);
 
     //assert_eq!(v["complexity"]["value"], w["complexity"]["value"]);
-
 }
