@@ -1,7 +1,4 @@
-use itertools::izip;
-use itertools::Itertools;
-use serde_json::from_str;
-use serde_json::{Result, Value};
+use serde_json::{Value};
 use std::fs;
 use std::process::Command;
 
@@ -19,8 +16,8 @@ fn test_report() {
     let result = fs::read_to_string("/tmp/report.json").unwrap();
     let expected = include_str!("expected/report.json");
 
-    let v = serde_json::from_str(&result);
-    let w = serde_json::from_str(&expected);
+    let v: Value = serde_json::from_str(&result).unwrap();
+    let w: Value = serde_json::from_str(&expected).unwrap();
 
-    //assert_eq!(v["complexity"]["value"], w["complexity"]["value"]);
+    assert_eq!(v["complexity"]["value"], w["complexity"]["value"]);
 }
