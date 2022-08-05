@@ -7,7 +7,7 @@ use std::io;
 use std::io::Write;
 use std::path::Path;
 
-pub(crate) fn process<P: AsRef<Path> + AsRef<OsStr>>(filename: P) -> Result<(), Box<dyn Error>> {
+pub(crate) fn process<P: AsRef<Path> + AsRef<OsStr>>(filename: P, per_read:bool) -> Result<(), Box<dyn Error>> {
     let mut complexity_content = HashMap::default();
     let mut total_mismatch_count = 0_u64;
     let mut total_base_count = 0_u64;
@@ -42,13 +42,26 @@ pub(crate) fn process<P: AsRef<Path> + AsRef<OsStr>>(filename: P) -> Result<(), 
 
     let file = Path::new(&filename).file_name().unwrap().to_str().unwrap();
 
-    let meta = json!({
-        "file name": file,
-        "total reads": read_count,
-        "complexity_per_read": complexity_content,
-        "complexity": total_mismatch_count as f32 / total_base_count as f32,
-    });
+    if per_read {
+        let meta = json!({
+            "file name": file,
+            "total reads": read_count,
+            "complexity_per_read": complexity_content,
+            "complexity": total_mismatch_count as f32 / total_base_count as f32,
+        });
+        io::stdout().write_all(meta.to_string().as_bytes())?;
+        Ok(())
 
-    io::stdout().write_all(meta.to_string().as_bytes())?;
-    Ok(())
+    } else {
+       let meta = json!({
+            "file name": file,
+            "total reads": read_count,
+            "complexity": total_mismatch_count as f32 / total_base_count as f32,
+        });
+
+        io::stdout().write_all(meta.to_string().as_bytes())?;
+        Ok(())
+
+    }
+
 }

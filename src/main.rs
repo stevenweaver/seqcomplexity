@@ -16,7 +16,15 @@ fn main() -> Result<(), Box<dyn Error>> {
                 .short('q')
                 .long("fastq"),
         )
+        .arg(
+            Arg::new("per-read")
+                .help("Report complexity per read.")
+                .takes_value(false)
+                .required(false)
+                .short('p')
+                .long("per-read"),
+        )
         .get_matches();
 
-    crate::process::process(matches.value_of("fastq").unwrap())
+    crate::process::process(matches.value_of("fastq").unwrap(), matches.is_present("per-read"))
 }
