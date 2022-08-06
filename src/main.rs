@@ -26,5 +26,8 @@ fn main() -> Result<(), Box<dyn Error>> {
         )
         .get_matches();
 
-    crate::process::process(matches.value_of("fastq").unwrap(), matches.is_present("per-read"))
+    crate::process::process(
+        matches.value_of("fastq").unwrap(),
+        matches.is_present("per-read"),
+    )
 }

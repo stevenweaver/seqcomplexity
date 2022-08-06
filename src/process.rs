@@ -7,7 +7,10 @@ use std::io;
 use std::io::Write;
 use std::path::Path;
 
-pub(crate) fn process<P: AsRef<Path> + AsRef<OsStr>>(filename: P, per_read:bool) -> Result<(), Box<dyn Error>> {
+pub(crate) fn process<P: AsRef<Path> + AsRef<OsStr>>(
+    filename: P,
+    per_read: bool,
+) -> Result<(), Box<dyn Error>> {
     let mut complexity_content = HashMap::default();
     let mut total_mismatch_count = 0_u64;
     let mut total_base_count = 0_u64;
@@ -51,9 +54,8 @@ pub(crate) fn process<P: AsRef<Path> + AsRef<OsStr>>(filename: P, per_read:bool)
         });
         io::stdout().write_all(meta.to_string().as_bytes())?;
         Ok(())
-
     } else {
-       let meta = json!({
+        let meta = json!({
             "file name": file,
             "total reads": read_count,
             "complexity": total_mismatch_count as f32 / total_base_count as f32,
@@ -61,7 +63,5 @@ pub(crate) fn process<P: AsRef<Path> + AsRef<OsStr>>(filename: P, per_read:bool)
 
         io::stdout().write_all(meta.to_string().as_bytes())?;
         Ok(())
-
     }
-
 }
