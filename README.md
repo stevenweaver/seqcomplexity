@@ -19,3 +19,4 @@ Arguments:
 | Parameter                 | Default       | Description   |	
 | :------------------------ |:-------------:| :-------------|
 | -q --fastq 	       |	-           |The path to the FASTQ file to use
+| -p, --per-read     |	-           |Report complexity per read
