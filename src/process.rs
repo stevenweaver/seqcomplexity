@@ -28,10 +28,8 @@ pub(crate) fn process<P: AsRef<Path> + AsRef<OsStr>>(
             let mut mismatch_count = 0;
 
             for (offset, chara) in sequence.iter().enumerate() {
-                if offset < seqrec.num_bases() - 1 {
-                    if &sequence[offset + 1] != chara {
-                        mismatch_count += 1;
-                    }
+                if offset < seqrec.num_bases() - 1 && &sequence[offset + 1] != chara {
+                    mismatch_count += 1;
                 }
             }
 

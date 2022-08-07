@@ -17,7 +17,7 @@ fn test_report() {
     let expected = include_str!("expected/report.json");
 
     let v: Value = serde_json::from_str(&result).unwrap();
-    let w: Value = serde_json::from_str(&expected).unwrap();
+    let w: Value = serde_json::from_str(expected).unwrap();
 
     assert_eq!(v["complexity"]["value"], w["complexity"]["value"]);
 }
